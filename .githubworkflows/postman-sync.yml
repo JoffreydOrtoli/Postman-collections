@@ -24,10 +24,11 @@ jobs:
           -o ./postman_collection.json
 
       # 3. Ajouter et commiter les modifications
-      - name: Commit changes
+      - name: Push changes
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
           git add postman_collection.json
           git commit -m 'Updated Postman collection'
-          git push
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/JoffreydOrtoli/Postman-collections.git
+
