@@ -19,7 +19,7 @@ jobs:
       # 2. Récupérer la collection Postman via l'API
       - name: Get Postman Collection
         run: |
-          curl --location --request GET 'https://api.getpostman.com/collections/27553397-9d0e9174-5c25-4479-b113-1906e04968ac?access_key=' \
+          curl --location --request GET 'https://api.getpostman.com/collections/27553397-9d0e9174-5c25-4479-b113-1906e04968ac' \
           --header 'X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}' \
           -o ./postman_collection.json
 
