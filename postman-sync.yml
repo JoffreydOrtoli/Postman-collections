@@ -1,0 +1,33 @@
+name: Sync Postman Collection
+
+# Déclenche le workflow à chaque commit sur la branche main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Permet de déclencher manuellement ce workflow
+
+jobs:
+  sync-collection:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code du dépôt GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2. Récupérer la collection Postman via l'API
+      - name: Get Postman Collection
+        run: |
+          curl --location --request GET 'https://api.getpostman.com/collections/27553397-9d0e9174-5c25-4479-b113-1906e04968ac?access_key=' \
+          --header 'X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}' \
+          -o ./postman_collection.json
+
+      # 3. Ajouter et commiter les modifications
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add postman_collection.json
+          git commit -m 'Updated Postman collection'
+          git push
