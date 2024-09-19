@@ -1,1 +1,1 @@
-Postan transaction SSCC
+Postan collecions
